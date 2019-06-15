@@ -9,30 +9,30 @@ client.connect();
 
 exports.list = function (req, res) {
 
-    client.query('SELECT * FROM customer', function (err, result) {
+    client.query('SELECT * FROM user', function (err, result) {
         if (err) {
             console.log(err);
             res.status(400).send(err);
         }
-        res.render('customer/list', { title: "users", data: result.rows });
+        res.render('user/list', { title: "users", data: result.rows });
     });
 
 };
 
 exports.add = function (req, res) {
-    res.render('customer/add', { title: "Add Customer"  });
+    res.render('user/add', { title: "Add user"  });
 };
 
 exports.edit = function (req, res) {
 
     var id = req.params.id;
 
-    client.query('SELECT * FROM customer WHERE id=$1', [id], function (err, result) {
+    client.query('SELECT * FROM user WHERE id=$1', [id], function (err, result) {
         if (err) {
             console.log(err);
             res.status(400).send(err);
         }
-        res.render('customer/edit', { title: "Edit Customer", data: result.rows });
+        res.render('user/edit', { title: "Edit user", data: result.rows });
     });
 
 };
@@ -41,7 +41,7 @@ exports.save = function (req, res) {
 
     var cols = [req.body.name, req.body.address, req.body.email, req.body.phone];
 
-    client.query('INSERT INTO customer(name, address, email, phone) VALUES($1, $2, $3, $4) RETURNING *', cols, function (err, result) {
+    client.query('INSERT INTO user(name, address, email, phone) VALUES($1, $2, $3, $4) RETURNING *', cols, function (err, result) {
         if (err) {
             console.log("Error Saving : %s ", err);
         }
@@ -54,7 +54,7 @@ exports.update = function (req, res) {
 
     var cols = [req.body.name, req.body.address, req.body.email, req.body.phone, req.params.id];
 
-    client.query('UPDATE customer SET name=$1, address=$2,email=$3, phone=$4 WHERE id=$5', cols, function (err, result) {
+    client.query('UPDATE user SET name=$1, address=$2,email=$3, phone=$4 WHERE id=$5', cols, function (err, result) {
         if (err) {
             console.log("Error Updating : %s ", err);
         }
@@ -67,7 +67,7 @@ exports.delete = function (req, res) {
 
     var id = req.params.id;
 
-    client.query("DELETE FROM customer WHERE id=$1", [id], function (err, rows) {
+    client.query("DELETE FROM user WHERE id=$1", [id], function (err, rows) {
         if (err) {
             console.log("Error deleting : %s ", err);
         }
