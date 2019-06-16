@@ -8,9 +8,8 @@
             <tr>
                 <th width="50px">No</th>
                 <th>Name</th>
-                <th>Address</th>
-                <th>Phone</th>
                 <th>Email</th>
+                <th>Gender</th>
                 <th width="120px">Action</th>
             </tr>
 
@@ -20,10 +19,9 @@
 
             <tr>
                 <td><%=(i+1)%></td>
-                <td><%=data[i].name%></td>
-                <td><%=data[i].address%></td>
-                <td><%=data[i].phone%></td>
+                <td><%=data[i].full_name%></td>
                 <td><%=data[i].email%></td>
+                <td><%=data[i].gender%></td>
                 <td>
                     <a class="a-inside edit" href="../users/edit/<%=data[i].id%>">Edit</a>
                     <a class="a-inside delete" href="../users/delete/<%=data[i].id%>">Delete</a>

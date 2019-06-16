@@ -1,18 +1,18 @@
 <%- include ../layouts/header.ejs %>
 <div class="page-data">
-    <form method="post" action="/users/edit/<%=data[0].id%>">
+    <form method="post" action="/users/edit/<%=data.id%>">
         <table cellpadding="11">
             <tr>
-                <td class="label">Name</td>
-                <td><input type="text" name="name" value="<%=data[0].name%>" required /></td>
+                <td class="label">full_name</td>
+                <td><input type="text" name="full_name" value="<%=data.full_name%>" required /></td>
             </tr>
             <tr>
                 <td class="label">Email</td>
-                <td><input type="text" value="<%=data[0].email%>" name="email" required /></td>
+                <td><input type="text" value="<%=data.email%>" name="email" required /></td>
             </tr>
             <tr>
                 <td class="label">Gender</td>
-                <td><input type="text" name="gender" value="<%=data[0].phone%>" required /></td>
+                <td><input type="text" name="gender" value="<%=data.gender%>" required /></td>
             </tr>
             <tr>
                 <td class="label"></td>

@@ -12,12 +12,12 @@
     "rdbms",
     "crud"
   ],
-  "homepage": "http://github.com/dannibla/nodejs-postgresql-crud",
+  "homepage": "http://github.com/selim123018/nodejs-postgresql-crude",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dannibla/nodejs-postgresql-crud.git"
+    "url": "git://github.com/selim123018/nodejs-postgresql-crude.git"
   },
-  "author": "Daniel Abraham <dannibla@outlook.com>",
+  "author": "Selim Reza <selimcse12st@gmail.com>",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -27,8 +27,5 @@
     "pg": "^7.8.2",
     "sequelize": "^5.8.9"
   },
-  "license": "MIT",
-  "engines": {
-    "node": ">= 4.5.0"
-  }
+  "license": "MIT"
 }

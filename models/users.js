@@ -1,31 +1,29 @@
-const user_type = (sequelize, DataTypes) => {
-  const User_type = sequelize.define('user_type', {
-    id: {
-        type: Seq.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    full_name: {
-      type: DataTypes.VARCHAR
-    },
-    email: {
-      type: DataTypes.VARCHAR,
-      unique:true
-    },
-    gender: {
-      type: DataTypes.VARCHAR,
-    },
-    created_at:{
-      type: DataTypes.DATE
-    }
-  });
+const sequelize = require('sequelize');
+const db=require('../config/database');
 
-  User_type.associate = models => {
-    User_type.hasMany(models.user);
-  };
+const User = db.define("user", {
+  id: {
+    type: sequelize.UUID,
+    defaultValue: sequelize.UUIDV1,
+    primaryKey: true
+  },
+  full_name: {
+    type: sequelize.STRING
+  },
+  email: {
+    type: sequelize.STRING,
+    unique:true
+  },
+  gender: {
+    type: sequelize.STRING
+  },
+  created_at:{
+    type: sequelize.DATE
+  }
+});
 
-
-  return User_type;
+User.associate = models => {
+  User.belongsTo(models.user_type);
 };
 
-export default user_type;
+module.exports=User;

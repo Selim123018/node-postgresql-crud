@@ -1,22 +1,14 @@
 const { Client } = require('pg');
-var connectionString = "postgres://postgres:root@localhost:5432/database";
+const User = require('../models/users');
+const user_type = require('../models/user_type');
+const db = require('../config/database');
 
-const client = new Client({
-    connectionString: connectionString
-});
 
-client.connect();
 
 exports.list = function (req, res) {
-
-    client.query('SELECT * FROM user', function (err, result) {
-        if (err) {
-            console.log(err);
-            res.status(400).send(err);
-        }
-        res.render('user/list', { title: "users", data: result.rows });
-    });
-
+    User.findAll()
+    .then((result)=>{res.render('user/list', { title: "users", data: result })})
+    .catch(err=> console.log(err))
 };
 
 exports.add = function (req, res) {
@@ -26,54 +18,48 @@ exports.add = function (req, res) {
 exports.edit = function (req, res) {
 
     var id = req.params.id;
-
-    client.query('SELECT * FROM user WHERE id=$1', [id], function (err, result) {
-        if (err) {
-            console.log(err);
-            res.status(400).send(err);
-        }
-        res.render('user/edit', { title: "Edit user", data: result.rows });
-    });
+    User.findByPk(req.params.id).then(result=>{
+      res.render('user/edit', { title: "Edit user", data: result });
+    }).catch(err=> console.log(err));
 
 };
 
-exports.save = function (req, res) {
 
-    var cols = [req.body.name, req.body.address, req.body.email, req.body.phone];
+exports.save= function(req, res){
 
-    client.query('INSERT INTO user(name, address, email, phone) VALUES($1, $2, $3, $4) RETURNING *', cols, function (err, result) {
-        if (err) {
-            console.log("Error Saving : %s ", err);
-        }
-        res.redirect('/users');
-    });
+  let {full_name, email, gender} = req.body;
+  User.create({
+    full_name,
+    email,
+    gender
+  }).then(()=> res.redirect('/users'))
+  .catch((error) => console.log(error));
 
-};
+}
+
 
 exports.update = function (req, res) {
 
-    var cols = [req.body.name, req.body.address, req.body.email, req.body.phone, req.params.id];
-
-    client.query('UPDATE user SET name=$1, address=$2,email=$3, phone=$4 WHERE id=$5', cols, function (err, result) {
-        if (err) {
-            console.log("Error Updating : %s ", err);
-        }
-        res.redirect('/users');
-    });
-
+  let {full_name, email, gender} = req.body;
+  var id = req.params.id;
+    User
+    .update({
+      full_name,
+      email,
+      gender
+    },{where:{id:id}})
+    .then(()=>{res.redirect('/users')})
+    .catch(err=> console.log(err))
 };
 
 exports.delete = function (req, res) {
 
     var id = req.params.id;
 
-    client.query("DELETE FROM user WHERE id=$1", [id], function (err, rows) {
-        if (err) {
-            console.log("Error deleting : %s ", err);
-        }
-        res.redirect('/users');
-    });
-
+    User.destroy({
+      where:{
+        id:id
+      }})
+      .then(()=>res.redirect('/users'))
+      .catch(err=> console.log(err))
 };
-
-
