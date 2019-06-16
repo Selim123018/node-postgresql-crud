@@ -3,7 +3,7 @@ const db=require('../config/database');
 
 const User = db.define("user", {
   id: {
-    type: sequelize.UUID,
+    type: sequelize.INTEGER,
     defaultValue: sequelize.UUIDV1,
     primaryKey: true
   },

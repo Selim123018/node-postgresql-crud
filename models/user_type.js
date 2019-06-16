@@ -3,9 +3,9 @@ const db=require('../config/database');
 
 const User_type = db.define('user_type', {
   id: {
-      type: sequelize.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+    type: sequelize.INTEGER,
+    defaultValue: sequelize.UUIDV1,
+    primaryKey: true
   },
   name: {
     type: sequelize.STRING
@@ -17,7 +17,7 @@ const User_type = db.define('user_type', {
 
 User_type.associate = models => {
   User_type.hasMany(models.user, {
-    foregnkey:'user_type_id'
+    foregnkey:'id'
   });
 };
 

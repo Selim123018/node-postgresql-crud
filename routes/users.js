@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 const User = require('../models/users');
-const user_type = require('../models/user_type');
+const User_type = require('../models/user_type');
 const db = require('../config/database');
 
 
@@ -12,7 +12,9 @@ exports.list = function (req, res) {
 };
 
 exports.add = function (req, res) {
-    res.render('user/add', { title: "Add user"  });
+    User_type.findAll()
+    .then((result)=>{res.render('user/add', { title: "Add user", data: result  })})
+    .catch(err=> console.log(err));
 };
 
 exports.edit = function (req, res) {

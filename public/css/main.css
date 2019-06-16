@@ -44,7 +44,7 @@ body {
     border-width: 1px;
 }
 
-input[type=text],textarea {
+input[type=text],select {
     width: 100%;
     padding: 6px 10px;
     margin: 8px 0;
@@ -66,4 +66,7 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 14px;
+}
+.user_type{
+  margin-left: 100px;
 }
